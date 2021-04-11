@@ -23,5 +23,37 @@ public class CompanyService implements ICompanyService{
 			return true;
 		}
 	}
+		@Override
+	public List<Company> getAllCompanyInfo() {
+		if (repo.findAll().isEmpty())
+			throw new EmptyTableException("No Data Found in the database");
+		else
+			return repo.findAll();
+	}
 
+	@Override
+	public Company getCompanyDetails(String companyId) {
+		Optional<Company> opt=repo.findById(companyId);
+		if(opt.isPresent())
+			return opt.get();
+		return null;
+	}
+
+	@Override
+	public boolean updateCompanyInfo(Company info) {
+		if(repo.existsById(info.getCompanyId())) {
+			repo.save(info);
+			return true;
+		}
+			return false;
+	}
+
+	@Override
+	public boolean deleteCompanyInfo(String companyId) {
+		if(repo.existsById(companyId)) {
+			repo.deleteById(companyId);
+			return true;
+		}
+			return false;
+	}
 }
