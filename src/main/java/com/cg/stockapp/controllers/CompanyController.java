@@ -21,12 +21,12 @@ public class CompanyController {
 		serv.addCompany(company);
 		return "Company added successfully";
 	}
-	
-		public List<Company> getAllCompanyInfo() {
-		List<Company> list = serv.getAllCompanyInfo();
-		if (list.size() == 0)
-			throw new EmptyTableException("company information not found in database");
-		return list;
+	@GetMapping(value = "All companies information")
+	public List<Company> getAllCompanyInfo() {
+	List<Company> list = serv.getAllCompanyInfo();
+	if (list.size() == 0)
+		throw new EmptyTableException("company information not found in database");
+	return list;
 	}
 
 	@GetMapping(value = "{CompanyDetails}")
